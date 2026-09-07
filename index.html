@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사진작가 포트폴리오 - 작업별 보기</title>
+    <style>
+        /* 1. 전체 페이지 스타일 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6f8;
+            color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* 2. 전체 메인 컨테이너 */
+        .portfolio-container {
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 25px; /* 각 카드 사이의 간격 */
+        }
+
+        /* 3. 공통 카드 스타일 (소개 카드, 프로필 카드 모두 적용) */
+        .card {
+            background: #ffffff;
+            width: 100%;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+        /* 4. 작업 분류 타이틀 스타일 */
+        .work-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #111;
+            text-align: left;
+            margin-bottom: 12px;
+            padding-left: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 5. 자동 슬라이드 사진 영역 스타일 */
+        .slide-container {
+            width: 100%;
+            aspect-ratio: 3 / 2; /* 가로 3 : 세로 2 비율 고정 */
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            background-color: #eaeaea;
+        }
+
+        .slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* 현재 보여야 하는 이미지에 붙는 클래스 */
+        .slide-img.active {
+            opacity: 1;
+        }
+
+        /* 6. 나를 소개하는 영역 스타일 */
+        .name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #1a1a1a;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .intro-text {
+            font-size: 14.5px;
+            line-height: 1.7;
+            color: #4a5568;
+            margin-bottom: 25px;
+            word-break: keep-all;
+        }
+
+        /* 7. 링크 버튼 영역 스타일 */
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .link-btn {
+            display: block;
+            background-color: #1a202c;
+            color: #fff;
+            padding: 13px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .link-btn:hover {
+            background-color: #d4af37;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+        }
+
+	/* 8. 자동 슬라이드 사진 영역 스타일 (★3:2 비율 수정 완료) */
+        .slide-container {
+            width: 100%;
+            aspect-ratio: 3 / 2; /* 가로 3 : 세로 2 비율 고정 */
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            background-color: #eaeaea;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portfolio-container">
+
+        <!-- 👤 [1번째 상자] 작가 소개 및 연락처 카드 -->
+        <div class="card">
+            <h1 class="name">gyeongheon choi</h1>
+            <div class="subtitle">Visual Storyteller</div>
+            <p class="intro-text">
+                파인아트, 다큐멘터리, 저널리즘 사진작업을 하고 있는 사진작가입니다.
+		KIU 사진영상학과를 2026년에 졸업하여 작품 작업을 이어나가고 있습니다.
+            </p>
+            <div class="link-container">
+                <a href="https://www.instagram.com/main_heon/" target="_blank" class="link-btn">📸 인스타그램 구경하기</a>
+                <a href="mailto:your-email@example.com" class="link-btn">✉️ 촬영 문의 (이메일 보내기)</a>
+            </div>
+        </div>
+
+        <!-- 📸 [2번째 상자] 작업물 분리 영역 - 인물 사진 (Portraits) -->
+        <div>
+            <div class="work-title">스틸라이프</div>
+            <div class="slide-container" id="slide-group-1">
+                <!-- 인물 위주의 샘플 이미지 -->
+                <img src="스틸라이프0.jpg" class="slide-img active" alt="스틸라이프0">
+		<img src="스틸라이프1.jpg" class="slide-img active" alt="스틸라이프1">
+		<img src="스틸라이프2.jpg" class="slide-img active" alt="스틸라이프2">
+            </div>
+        </div>
+
+        <!-- 🌄 [3번째 상자] 작업물 분리 영역 - 풍경/도시 사진 (Landscapes) -->
+        <div>
+            <div class="work-title">저널리즘</div>
+            <div class="slide-container" id="slide-group-2">
+                <!-- 자연/풍경 위주의 샘플 이미지 -->
+                <img src="저널리즘0.jpg" class="slide-img active" alt="저널리즘0">
+		<img src="저널리즘1.jpg" class="slide-img active" alt="저널리즘1">
+		<img src="저널리즘2.jpg" class="slide-img active" alt="저널리즘2">
+		<img src="저널리즘3.jpg" class="slide-img active" alt="저널리즘3">
+		<img src="저널리즘4.jpg" class="slide-img active" alt="저널리즘4">
+		<img src="저널리즘5.jpg" class="slide-img active" alt="저널리즘5">
+
+
+            </div>
+        </div>
+	
+	<!-- 🌄 [4번째 상자] 작업물 분리 영역 - 풍경/도시 사진 (Landscapes) -->
+        <div>
+            <div class="work-title">다큐멘터리 파인아트</div>
+            <div class="slide-container" id="slide-group-3">
+                <!-- 자연/풍경 위주의 샘플 이미지 -->
+                <img src="다큐0.jpg" class="slide-img active" alt="다큐0">
+		<img src="다큐1.jpg" class="slide-img active" alt="다큐1">
+		<img src="다큐2.jpg" class="slide-img active" alt="다큐2">
+		<img src="다큐3.jpg" class="slide-img active" alt="다큐3">
+		<img src="다큐4.jpg" class="slide-img active" alt="다큐4">
+		<img src="다큐5.jpg" class="slide-img active" alt="다큐5">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ⚙️ 여러 개의 슬라이드를 독립적으로 움직이게 하는 자바스크립트 코드 -->
+    <script>
+        // 각 슬라이드 상자(그룹)별로 자동 전환을 설정하는 함수
+        function createAutoSlider(containerId) {
+            const container = document.getElementById(containerId);
+            const images = container.querySelectorAll('.slide-img');
+            let currentIndex = 0;
+
+            setInterval(() => {
+                // 현재 이미지 숨기기
+                images[currentIndex].classList.remove('active');
+                // 다음 이미지 인덱스 계산
+                currentIndex = (currentIndex + 1) % images.length;
+                // 다음 이미지 보여주기
+                images[currentIndex].classList.add('active');
+            }, 3000); // 3초마다 변경
+        }
+
+        // 페이지가 로드되면 각각의 슬라이드 그룹 작동 시작
+        createAutoSlider('slide-group-1');
+        createAutoSlider('slide-group-2');
+	createAutoSlider('slide-group-3');
+    </script>
+
+</body>
+</html>
